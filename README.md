@@ -38,24 +38,64 @@ npm run audit
 4. Slide numbers and URL hashes are enabled so you can deep-link to a slide.
 5. Fragments advance with the same keys; code blocks can step line ranges via `data-line-numbers`.
 
-## Deck outline (12 slides)
+Speaker notes in `<aside class="notes">` are author-controlled HTML rendered by reveal.js in the speaker view. Treat them as trusted content only—do not paste untrusted markup into notes.
+
+## Deck outline
 
 1. Title — Bootstrapping Azure Terraform state
-2. The problem — chicken-and-egg Day 0
-3. Challenges & requirements
-4. Options — Portal, CLI, ARM, Bicep
-5. Decision — bootstrap with Bicep
-6. Advantages of the chosen approach
-7. Architecture diagram
-8. What Bicep provisions
-9. Hardened-by-default security
-10. Pipeline access to private state storage
-11. Implementation — deploy + Terraform backend
-12. Closing
+2. Section — The Day 0 problem
+3. The problem — chicken-and-egg Day 0
+4. Challenges & requirements
+5. Section — Choosing an approach
+6. Options — Portal and CLI
+7. Options — ARM and Bicep
+8. Decision — bootstrap with Bicep
+9. Advantages of the chosen approach
+10. Section — The blueprint
+11. Architecture diagram
+12. What Bicep provisions
+13. Hardened-by-default security
+14. Pipeline access to private state storage
+15. Implementation — deploy + Terraform backend
+16. Closing
+
+### Layout classes
+
+| Class | Use in this deck |
+| --- | --- |
+| `slide-title` | Opening title + speaker |
+| `slide-section` / `section-alt` | Full-bleed section breaks |
+| `slide-list` | Bullets with fragments |
+| `slide-modes` | Two-column comparison |
+| `slide-diagram` | Full-bleed architecture diagram |
+| `slide-code` | Syntax-highlighted code |
+| `slide-closing` | Closing line |
 
 ## Theming
 
-Brand tokens live at the top of `src/style.css` (`--ink`, `--accent`, etc.). Fonts are DM Sans via `@fontsource/dm-sans` in `src/main.js`.
+Aligned with the [slides-as-code](https://github.com/jrabbott/slides-as-code) template. Brand tokens live at the top of `src/style.css`:
+
+```css
+:root {
+  --ink: #121820;
+  --muted: #2c3544;
+  --surface: #f2eee6;
+  --accent: #0c6b52;
+  --accent-soft: #c5e4d8;
+  --on-accent: #f2eee6;
+  --closing: #121820;
+}
+```
+
+Content slides share one solid paper colour (`--surface`). Section and closing slides use solid accent or ink. Defaults lean dyslexia-friendly:
+
+- [Atkinson Hyperlegible](https://brailleinstitute.org/freefont) with open letter/word spacing
+- Sentence-case labels; prefer **bold** over italic for emphasis
+- Quiet motion (`transition: 'none'`; plain `fragment` without travel)
+- Light syntax colours on paper (no dark Monokai block)
+- Calmer 1–2 column layouts
+
+Swap fonts via `@fontsource/atkinson-hyperlegible` in `src/main.js` and the `--r-*-font` / spacing variables.
 
 ## CI and publish
 
