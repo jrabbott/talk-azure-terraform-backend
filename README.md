@@ -4,12 +4,6 @@ Reveal.js talk deck on the Day 0 problem of provisioning a secure Azure remote b
 
 **Live deck (after Pages is enabled):** [https://jrabbott.github.io/talk-azure-terraform-backend/](https://jrabbott.github.io/talk-azure-terraform-backend/)
 
-## Sources
-
-- [blueprint-azure-terraform-backend](https://github.com/jrabbott/blueprint-azure-terraform-backend)
-- [ADR: Bootstrap Terraform state storage](https://dfe-digital.github.io/accessing-childcare-entitlement-checker/reference/decisions/bootstrap-tf/)
-- [How-to: Terraform state bootstrapping](https://dfe-digital.github.io/accessing-childcare-entitlement-checker/how-to/terraform-bootstrap/)
-
 ## Requirements
 
 - **Node.js 22+** (see `.nvmrc`). Prefer `npm ci` so the lockfile is respected.
@@ -57,7 +51,7 @@ npm run audit
 9. Hardened-by-default security
 10. Pipeline access to private state storage
 11. Implementation — deploy + Terraform backend
-12. Closing / references
+12. Closing
 
 ## Theming
 
