@@ -329,21 +329,16 @@
         <section class="slide-code" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
             <h2>Implementation</h2>
-            <pre><code class="language-bash" data-trim data-line-numbers="1-5|7-14">
+            <pre><code class="language-bash" data-trim data-line-numbers="1-4|6-10">
               az deployment sub create \
                 --location uksouth \
                 --template-file bicep/main.bicep \
-                --parameters bicep/environments/development.params.json \
-                --parameters workflowPrincipalId=&lt;PIPELINE_SP_OID&gt;
+                --parameters workflowPrincipalId=&lt;OID&gt;
 
-              # terraform {
-              #   backend "azurerm" {
-              #     resource_group_name  = "…-rg-uks-terraform"
-              #     storage_account_name = "…tfstatestorage"
-              #     container_name       = "tfstate"
-              #     key                  = "dev.terraform.tfstate"
-              #     use_azuread_auth     = true
-              #   }
+              # backend "azurerm" {
+              #   storage_account_name = "…tfstatestorage"
+              #   container_name       = "tfstate"
+              #   use_azuread_auth     = true
               # }
             </code></pre>
           </div>
