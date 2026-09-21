@@ -56,8 +56,9 @@ Speaker notes in `<aside class="notes">` are author-controlled HTML rendered by 
 12. What Bicep provisions
 13. Hardened-by-default security
 14. Pipeline access to private state storage
-15. Implementation — deploy + Terraform backend
-16. Closing
+15. Deploy the bootstrap — `az deployment sub create`
+16. Point Terraform at the backend — `backend "azurerm"`
+17. Closing
 
 ### Layout classes
 

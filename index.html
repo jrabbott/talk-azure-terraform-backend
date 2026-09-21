@@ -325,21 +325,16 @@
           </aside>
         </section>
 
-        <!-- 15. Implementation -->
+        <!-- 15. Implementation: Bicep deploy -->
         <section class="slide-code" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
-            <h2>Implementation</h2>
-            <pre><code class="language-bash" data-trim data-line-numbers="1-4|6-10">
+            <h2>Deploy the bootstrap</h2>
+            <pre><code class="language-bash" data-trim data-line-numbers>
               az deployment sub create \
                 --location uksouth \
                 --template-file bicep/main.bicep \
+                --parameters bicep/environments/dev.params.json \
                 --parameters workflowPrincipalId=&lt;OID&gt;
-
-              # backend "azurerm" {
-              #   storage_account_name = "…tfstatestorage"
-              #   container_name       = "tfstate"
-              #   use_azuread_auth     = true
-              # }
             </code></pre>
           </div>
           <aside class="notes">
@@ -349,7 +344,29 @@
           </aside>
         </section>
 
-        <!-- 16. Closing -->
+        <!-- 16. Implementation: Terraform backend -->
+        <section class="slide-code" data-background-color="#f2eee6">
+          <div class="content-pad content-pad-tight">
+            <h2>Point Terraform at the backend</h2>
+            <pre><code class="language-hcl" data-trim data-line-numbers>
+              terraform {
+                backend "azurerm" {
+                  resource_group_name  = "…-rg-uks-terraform"
+                  storage_account_name = "…tfstatestorage"
+                  container_name       = "tfstate"
+                  key                  = "dev.terraform.tfstate"
+                  use_azuread_auth     = true
+                }
+              }
+            </code></pre>
+          </div>
+          <aside class="notes">
+            After bootstrap, Terraform assumes the backend already exists. Prefer
+            Entra ID auth over storage account keys.
+          </aside>
+        </section>
+
+        <!-- 17. Closing -->
         <section class="slide-closing" data-background-color="#121820">
           <div class="closing-stack">
             <h2>Bootstrap once. Terraform forever.</h2>
