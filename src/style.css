@@ -256,6 +256,15 @@
   height: calc(100% - 2.4em);
 }
 
+.modes.modes-4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65em;
+}
+
+.modes.modes-4 .mode-col ul {
+  font-size: 0.72em;
+}
+
 .mode-col .mode-head {
   font-weight: 700;
   font-size: 1em;
@@ -271,6 +280,10 @@
 
 .mode-col:nth-child(3) .mode-head {
   background: var(--muted);
+}
+
+.mode-col:nth-child(4) .mode-head {
+  background: var(--accent);
 }
 
 .mode-col .label {
