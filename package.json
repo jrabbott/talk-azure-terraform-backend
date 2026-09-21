@@ -1,9 +1,9 @@
 {
-  "name": "slides-as-code",
+  "name": "talk-azure-terraform-backend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Reusable Vite + reveal.js starter template for talk slides",
+  "description": "Talk slides: bootstrapping a secure Azure remote backend for Terraform with Bicep",
   "engines": {
     "node": ">=22"
   },

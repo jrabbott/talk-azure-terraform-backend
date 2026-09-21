@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">Bootstrap architecture</title>
+  <desc id="desc">GitHub Actions deploys Bicep to provision hardened Azure state storage, then Terraform reads and writes state over a private endpoint.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5a6573"/>
+    </marker>
+  </defs>
+
+  <!-- Pipeline -->
+  <rect x="40" y="180" width="200" height="120" rx="4" fill="#0f6e56"/>
+  <text x="140" y="230" text-anchor="middle" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="20" font-weight="700">GitHub Actions</text>
+  <text x="140" y="258" text-anchor="middle" fill="#d8efe7" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="14">CI / CD pipeline</text>
+
+  <!-- Arrow 1 -->
+  <line x1="250" y1="240" x2="320" y2="240" stroke="#5a6573" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="285" y="225" text-anchor="middle" fill="#5a6573" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="600">1. Deploy</text>
+
+  <!-- Bicep -->
+  <rect x="330" y="180" width="200" height="120" rx="4" fill="#1c2434"/>
+  <text x="430" y="230" text-anchor="middle" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="20" font-weight="700">Bicep</text>
+  <text x="430" y="258" text-anchor="middle" fill="#e8ecf0" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="14">Subscription scope</text>
+
+  <!-- Arrow 2 -->
+  <line x1="540" y1="240" x2="610" y2="240" stroke="#5a6573" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="575" y="225" text-anchor="middle" fill="#5a6573" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="600">2. Provision</text>
+
+  <!-- Storage box -->
+  <rect x="620" y="80" width="280" height="320" rx="4" fill="#e8ecf0" stroke="#1c2434" stroke-width="2"/>
+  <text x="760" y="115" text-anchor="middle" fill="#1c2434" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="18" font-weight="700">Azure state backend</text>
+
+  <rect x="645" y="140" width="230" height="48" rx="3" fill="#ffffff" stroke="#5a6573" stroke-width="1.5"/>
+  <text x="760" y="170" text-anchor="middle" fill="#1c2434" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="15">Resource Group</text>
+
+  <rect x="645" y="200" width="230" height="48" rx="3" fill="#ffffff" stroke="#5a6573" stroke-width="1.5"/>
+  <text x="760" y="230" text-anchor="middle" fill="#1c2434" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="15">Storage + tfstate</text>
+
+  <rect x="645" y="260" width="230" height="48" rx="3" fill="#ffffff" stroke="#5a6573" stroke-width="1.5"/>
+  <text x="760" y="290" text-anchor="middle" fill="#1c2434" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="15">Private Endpoint</text>
+
+  <rect x="645" y="320" width="230" height="48" rx="3" fill="#0f6e56"/>
+  <text x="760" y="350" text-anchor="middle" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="15">Keys &amp; public off</text>
+
+  <!-- Terraform -->
+  <rect x="940" y="180" width="140" height="120" rx="4" fill="#1c2434"/>
+  <text x="1010" y="230" text-anchor="middle" fill="#ffffff" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="18" font-weight="700">Terraform</text>
+  <text x="1010" y="258" text-anchor="middle" fill="#e8ecf0" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="13">init / plan / apply</text>
+
+  <!-- Arrow 3 -->
+  <line x1="900" y1="240" x2="930" y2="240" stroke="#5a6573" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <text x="915" y="220" text-anchor="middle" fill="#5a6573" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">3. State</text>
+
+  <!-- Bottom caption -->
+  <text x="560" y="460" text-anchor="middle" fill="#5a6573" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="16">
+    Bicep builds the house · Terraform moves in and stores state
+  </text>
+  <text x="560" y="490" text-anchor="middle" fill="#5a6573" font-family="DM Sans, Helvetica, Arial, sans-serif" font-size="14">
+    Deploy ’ unlock or private access ’ Terraform ’ re-lock / harden
+  </text>
+</svg>
