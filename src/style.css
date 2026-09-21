@@ -164,12 +164,16 @@ body {
 .slide-title .title-stack {
   position: relative;
   z-index: 2;
-  max-width: 15em;
+  /* Wide enough for the title on one line (two max) on a 1920 slide */
+  max-width: 38em;
   margin: 3.2em 0 0 1.6em;
 }
 
 .slide-title h1 {
   margin-bottom: 0.4em;
+  font-size: 1.95em;
+  line-height: 1.15;
+  text-wrap: balance;
 }
 
 .slide-title .eyebrow {
