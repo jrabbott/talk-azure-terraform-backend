@@ -13,12 +13,7 @@
     <div class="reveal">
       <div class="slides">
         <!-- 1. Title -->
-        <section class="slide-title" data-background-color="#e8ecf0">
-          <img
-            class="logo logo-tl"
-            src="assets/logo-placeholder.svg"
-            alt="Logo"
-          />
+        <section class="slide-title" data-background-color="#f2eee6">
           <div class="title-stack">
             <p class="eyebrow">Day 0 infrastructure</p>
             <h1>Bootstrapping Azure Terraform state</h1>
@@ -26,22 +21,27 @@
           </div>
         </section>
 
-        <!-- 2. The problem -->
-        <section class="slide-list" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 2. Section: Day 0 -->
+        <section class="slide-section" data-background-color="#0c6b52">
+          <h2>The Day 0 problem</h2>
+        </section>
+
+        <!-- 3. The problem -->
+        <section class="slide-list" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
             <h2>The problem</h2>
             <ul>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Terraform needs a remote backend for state and locking
               </li>
-              <li class="fragment fade-up">
-                Azure Storage is the usual host — but something must create it first
+              <li class="fragment">
+                Azure Storage is the usual host — but something must create it
+                first
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 The primary Terraform config cannot create its own backend
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Manual Portal clicks or one-off scripts invite drift and risk
               </li>
             </ul>
@@ -54,27 +54,18 @@
           </aside>
         </section>
 
-        <!-- 3. Challenges & requirements -->
-        <section class="slide-list" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 4. Challenges & requirements -->
+        <section class="slide-list" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
             <h2>Challenges &amp; requirements</h2>
             <ul>
-              <li class="fragment fade-up">
-                Fully automate backend resource creation
-              </li>
-              <li class="fragment fade-up">
-                Minimise manual intervention
-              </li>
-              <li class="fragment fade-up">
+              <li class="fragment">Fully automate backend resource creation</li>
+              <li class="fragment">Minimise manual intervention</li>
+              <li class="fragment">
                 Repeat deployments across environments and subscriptions
               </li>
-              <li class="fragment fade-up">
-                Stay aligned with IaC and run inside CI/CD
-              </li>
-              <li class="fragment fade-up">
-                Prefer native Azure tooling where possible
-              </li>
+              <li class="fragment">Stay aligned with IaC and run inside CI/CD</li>
+              <li class="fragment">Prefer native Azure tooling where possible</li>
             </ul>
           </div>
           <aside class="notes">
@@ -84,11 +75,16 @@
           </aside>
         </section>
 
-        <!-- 4. Options -->
-        <section class="slide-modes" data-background-color="#ffffff">
+        <!-- 5. Section: Options -->
+        <section class="slide-section" data-background-color="#0c6b52">
+          <h2>Choosing an approach</h2>
+        </section>
+
+        <!-- 6. Options: Portal + CLI -->
+        <section class="slide-modes" data-background-color="#f2eee6">
           <div class="content-pad">
-            <h2>Options considered</h2>
-            <div class="modes modes-4">
+            <h2>Options: Portal and CLI</h2>
+            <div class="modes">
               <div class="mode-col">
                 <div class="mode-head">Portal</div>
                 <p class="label">Works with</p>
@@ -117,6 +113,19 @@
                   <li>Harder to maintain</li>
                 </ul>
               </div>
+            </div>
+          </div>
+          <aside class="notes">
+            Portal is only for experiments. CLI is pragmatic but diverges from
+            IaC — scripts need custom idempotency and drift over time.
+          </aside>
+        </section>
+
+        <!-- 7. Options: ARM + Bicep -->
+        <section class="slide-modes" data-background-color="#f2eee6">
+          <div class="content-pad">
+            <h2>Options: ARM and Bicep</h2>
+            <div class="modes">
               <div class="mode-col">
                 <div class="mode-head">ARM</div>
                 <p class="label">Works with</p>
@@ -148,29 +157,26 @@
             </div>
           </div>
           <aside class="notes">
-            Portal is only for experiments. CLI is pragmatic but diverges from
-            IaC. ARM is viable but not preferred for new work. Bicep gives the
-            best balance of automation, maintainability, and Azure-native support.
+            ARM is viable but not preferred for new work. Bicep gives the best
+            balance of automation, maintainability, and Azure-native support.
           </aside>
         </section>
 
-        <!-- 5. Decision -->
-        <section class="two-tone" data-background-color="#e8ecf0">
-          <div class="tone-header">
+        <!-- 8. Decision -->
+        <section class="slide-list" data-background-color="#f2eee6">
+          <div class="content-pad content-pad-tight">
             <h2>Decision: bootstrap with Bicep</h2>
-          </div>
-          <div class="tone-body">
             <ul>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Dedicated subscription-scoped Bicep deploy runs before Terraform
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Creates the house: RG, storage, networking, diagnostics, RBAC
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Terraform configs assume the backend already exists
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Main Terraform never creates or manages bootstrap resources
               </li>
             </ul>
@@ -182,25 +188,20 @@
           </aside>
         </section>
 
-        <!-- 6. Advantages -->
-        <section class="slide-list" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 9. Advantages -->
+        <section class="slide-list" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
             <h2>Advantages of Bicep bootstrap</h2>
             <ul>
-              <li class="fragment fade-up">
-                Fully automated Day 0 infrastructure
-              </li>
-              <li class="fragment fade-up">
+              <li class="fragment">Fully automated Day 0 infrastructure</li>
+              <li class="fragment">
                 Repeatable across environments and subscriptions
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Aligns with Infrastructure as Code practices
               </li>
-              <li class="fragment fade-up">
-                Azure-native, idempotent, CI/CD friendly
-              </li>
-              <li class="fragment fade-up">
+              <li class="fragment">Azure-native, idempotent, CI/CD friendly</li>
+              <li class="fragment">
                 Trade-off: maintain Bicep and Terraform side by side
               </li>
             </ul>
@@ -212,9 +213,13 @@
           </aside>
         </section>
 
-        <!-- 7. Architecture -->
-        <section class="slide-diagram" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 10. Section: Blueprint -->
+        <section class="slide-section section-alt" data-background-color="#121820">
+          <h2>The blueprint</h2>
+        </section>
+
+        <!-- 11. Architecture -->
+        <section class="slide-diagram" data-background-color="#f2eee6">
           <div class="diagram-frame">
             <img
               src="assets/diagram-bootstrap-architecture.svg"
@@ -229,25 +234,22 @@
           </aside>
         </section>
 
-        <!-- 8. What Bicep provisions -->
-        <section class="slide-list" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 12. What Bicep provisions -->
+        <section class="slide-list" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
             <h2>What Bicep provisions</h2>
             <ul>
-              <li class="fragment fade-up">
-                Resource group for state storage
-              </li>
-              <li class="fragment fade-up">
+              <li class="fragment">Resource group for state storage</li>
+              <li class="fragment">
                 VNet, subnet, NSG, private endpoint, and private DNS
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Zone-redundant storage account and <code>tfstate</code> container
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Log Analytics workspace and blob diagnostics
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Entra ID RBAC for the pipeline identity
               </li>
             </ul>
@@ -260,27 +262,33 @@
           </aside>
         </section>
 
-        <!-- 9. Hardening -->
-        <section class="two-tone" data-background-color="#e8ecf0">
-          <div class="tone-header">
+        <!-- 13. Hardening (2-column modes) -->
+        <section class="slide-modes" data-background-color="#f2eee6">
+          <div class="content-pad">
             <h2>Hardened by default</h2>
-          </div>
-          <div class="tone-body">
-            <div class="split-body">
-              <ul>
-                <li>Shared key access disabled — Entra ID only</li>
-                <li>Public network access disabled — private endpoint only</li>
-                <li>TLS 1.2 and HTTPS-only transit</li>
-                <li>Blob versioning and 14-day soft delete</li>
-                <li>Diagnostics to Log Analytics for audit</li>
-              </ul>
-              <ul>
-                <li>SKU: Standard_ZRS</li>
-                <li>Default network action: Deny</li>
-                <li>No public blob access</li>
-                <li>NSG deny-all inbound on the state subnet</li>
-                <li>Allow ~5 minutes for RBAC to sync</li>
-              </ul>
+            <div class="modes">
+              <div class="mode-col">
+                <div class="mode-head">Controls</div>
+                <p class="label">Resting state</p>
+                <ul>
+                  <li>Shared key access disabled — Entra ID only</li>
+                  <li>Public network access disabled — private endpoint only</li>
+                  <li>TLS 1.2 and HTTPS-only transit</li>
+                  <li>Blob versioning and 14-day soft delete</li>
+                  <li>Diagnostics to Log Analytics</li>
+                </ul>
+              </div>
+              <div class="mode-col">
+                <div class="mode-head">Configuration</div>
+                <p class="label">Defaults</p>
+                <ul>
+                  <li>SKU: Standard_ZRS</li>
+                  <li>Default network action: Deny</li>
+                  <li>No public blob access</li>
+                  <li>NSG deny-all inbound on the state subnet</li>
+                  <li>Allow ~5 minutes for RBAC to sync</li>
+                </ul>
+              </div>
             </div>
           </div>
           <aside class="notes">
@@ -290,22 +298,21 @@
           </aside>
         </section>
 
-        <!-- 10. Pipeline reality -->
-        <section class="slide-list" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 14. Pipeline reality -->
+        <section class="slide-list" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
             <h2>Pipeline access to state</h2>
             <ul>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Hosted runners cannot reach a private-endpoint-only account
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Prefer self-hosted agents inside the VNet (or peered)
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Or temporarily unlock / whitelist the runner IP, then re-lock
               </li>
-              <li class="fragment fade-up">
+              <li class="fragment">
                 Set <code>BOOTSTRAP_TF=false</code> to skip redeploy once live
               </li>
             </ul>
@@ -318,27 +325,16 @@
           </aside>
         </section>
 
-        <!-- 11. Implementation -->
-        <section class="slide-code" data-background-color="#ffffff">
-          <div class="slide-header-bar"></div>
+        <!-- 15. Implementation: Bicep deploy -->
+        <section class="slide-code" data-background-color="#f2eee6">
           <div class="content-pad content-pad-tight">
-            <h2>Implementation</h2>
-            <pre><code class="language-bash" data-trim data-line-numbers="1-5|7-14">
+            <h2>Deploy the bootstrap</h2>
+            <pre><code class="language-bash" data-trim data-line-numbers>
               az deployment sub create \
                 --location uksouth \
                 --template-file bicep/main.bicep \
-                --parameters bicep/environments/development.params.json \
-                --parameters workflowPrincipalId=&lt;PIPELINE_SP_OID&gt;
-
-              # terraform {
-              #   backend "azurerm" {
-              #     resource_group_name  = "…-rg-uks-terraform"
-              #     storage_account_name = "…tfstatestorage"
-              #     container_name       = "tfstate"
-              #     key                  = "dev.terraform.tfstate"
-              #     use_azuread_auth     = true
-              #   }
-              # }
+                --parameters bicep/environments/dev.params.json \
+                --parameters workflowPrincipalId=&lt;OID&gt;
             </code></pre>
           </div>
           <aside class="notes">
@@ -348,13 +344,30 @@
           </aside>
         </section>
 
-        <!-- 12. Closing -->
-        <section class="slide-closing" data-background-color="#1c2434">
-          <img
-            class="logo logo-tl"
-            src="assets/logo-placeholder-on-dark.svg"
-            alt="Logo"
-          />
+        <!-- 16. Implementation: Terraform backend -->
+        <section class="slide-code" data-background-color="#f2eee6">
+          <div class="content-pad content-pad-tight">
+            <h2>Point Terraform at the backend</h2>
+            <pre><code class="language-hcl" data-trim data-line-numbers>
+              terraform {
+                backend "azurerm" {
+                  resource_group_name  = "…-rg-uks-terraform"
+                  storage_account_name = "…tfstatestorage"
+                  container_name       = "tfstate"
+                  key                  = "dev.terraform.tfstate"
+                  use_azuread_auth     = true
+                }
+              }
+            </code></pre>
+          </div>
+          <aside class="notes">
+            After bootstrap, Terraform assumes the backend already exists. Prefer
+            Entra ID auth over storage account keys.
+          </aside>
+        </section>
+
+        <!-- 17. Closing -->
+        <section class="slide-closing" data-background-color="#121820">
           <div class="closing-stack">
             <h2>Bootstrap once. Terraform forever.</h2>
           </div>

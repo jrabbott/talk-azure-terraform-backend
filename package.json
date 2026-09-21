@@ -14,7 +14,7 @@
     "audit": "npm audit --audit-level=high"
   },
   "dependencies": {
-    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
     "reveal.js": "^6.0.2"
   },
   "devDependencies": {
